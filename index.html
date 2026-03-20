@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SharpPicks · Sports Market Intelligence</title>
+  <meta name="description" content="SharpPicks · One pick beats five. Model-driven signals across NBA, WNBA, and MLB. Only when a real edge appears.">
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SharpPicks" />
+  <meta property="og:title" content="SharpPicks · Sports Market Intelligence" />
+  <meta property="og:description" content="SharpPicks · One pick beats five. Model-driven signals across NBA, WNBA, and MLB. Only when a real edge appears." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SharpPicks · Sports Market Intelligence" />
+  <meta name="twitter:description" content="SharpPicks · One pick beats five. Model-driven signals across NBA, WNBA, and MLB. Only when a real edge appears." />
+  <link rel="icon" href="/images/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/images/favicon-16x16.png" type="image/png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <meta property="og:image" content="https://sharppicks.ai/images/og-image.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #090c14;
+      --bg-1: #0f1420;
+      --bg-2: #141928;
+      --surface: #1a2035;
+      --surface-hover: #1f2740;
+      --stroke: rgba(255,255,255,0.08);
+      --stroke-med: rgba(255,255,255,0.12);
+      --text-primary: #f0f2f7;
+      --text-secondary: #8a92a8;
+      --text-tertiary: #515969;
+      --blue: #4f86f7;
+      --blue-dim: rgba(79,134,247,0.15);
+      --green: #22c55e;
+      --red: #ef4444;
+      --gold: #f59e0b;
+      --serif: 'IBM Plex Serif', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(9,12,20,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--stroke);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img, .nav-logo svg { width: 24px; height: 24px; }
+    .nav-logo-text {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-ghost {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { color: var(--text-primary); background: var(--surface); }
+    .btn-primary {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--blue);
+      border: none;
+      cursor: pointer;
+      padding: 9px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    /* ===== HERO — SPLIT LAYOUT ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      top: 20%;
+      left: 30%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse at center, rgba(79,134,247,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      max-width: 1200px;
+      width: 100%;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-text h1 {
+      font-family: var(--serif);
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+    .hero-sub {
+      font-family: var(--sans);
+      font-size: 17px;
+      font-style: normal;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin-bottom: 16px;
+    }
+    .hero-supporting {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--blue);
+      margin-bottom: 36px;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+    }
+    .btn-hero-primary {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--blue);
+      border: none;
+      cursor: pointer;
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      text-align: center;
+      transition: opacity 0.2s;
+    }
+    .btn-hero-primary:hover { opacity: 0.85; }
+    .btn-hero-secondary {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--stroke-med);
+      cursor: pointer;
+      padding: 13px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-hero-secondary:hover { background: var(--surface-hover); color: var(--text-primary); }
+    /* ===== MARKET INTELLIGENCE CARD ===== */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+    }
+    .market-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 28px 28px 24px;
+      width: 100%;
+      max-width: 380px;
+      backdrop-filter: blur(8px);
+    }
+    .market-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .regime-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px rgba(34,197,94,0.4);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 8px rgba(34,197,94,0.4); }
+      50% { box-shadow: 0 0 14px rgba(34,197,94,0.6); }
+    }
+    .regime-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+    .regime-label strong {
+      color: var(--green);
+    }
+    .market-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .market-stat {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .market-stat.accent { color: var(--blue); }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .market-stat.accent .stat-num { color: var(--blue); }
+    .market-divider {
+      height: 1px;
+      background: var(--stroke);
+      margin-bottom: 20px;
+    }
+    .game-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .game-card-team {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .game-card-tags {
+      display: flex;
+      gap: 8px;
+    }
+    .edge-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--blue-dim);
+      color: var(--blue);
+    }
+    .qualifies-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(34,197,94,0.10);
+      color: var(--green);
+    }
+    /* ===== TRUST STRIP ===== */
+    .trust-strip {
+      padding: 72px 48px;
+      border-top: 1px solid var(--stroke);
+      border-bottom: 1px solid var(--stroke);
+      background: var(--bg-1);
+    }
+    .trust-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .discipline-filter-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 36px 40px;
+      text-align: center;
+    }
+    .trust-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 28px;
+      display: block;
+    }
+    .trust-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-bottom: 28px;
+    }
+    .trust-stat {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+    .trust-stat.dim { color: var(--text-tertiary); opacity: 0.5; }
+    .trust-num {
+      display: block;
+      font-family: var(--mono);
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .trust-stat.dim .trust-num { color: var(--text-tertiary); }
+    .trust-tagline {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    /* ===== SECTIONS SHARED ===== */
+    section { padding: 100px 24px; }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .container-wide {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 20px;
+      display: block;
+    }
+    /* ===== HOW IT WORKS — 3 COLUMNS ===== */
+    .how-it-works {
+      padding: 120px 48px;
+    }
+    .how-it-works .section-label {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .hiw-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hiw-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      padding: 32px 28px;
+    }
+    .hiw-icon {
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    .hiw-card h3 {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .hiw-card p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+    /* ===== PRODUCT SCREENSHOT — QUANT CARD ===== */
+    .product-screenshot {
+      padding: 120px 48px;
+      text-align: center;
+      background: var(--bg-1);
+      border-top: 1px solid var(--stroke);
+      border-bottom: 1px solid var(--stroke);
+    }
+    .product-screenshot h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 48px;
+    }
+    .quant-card {
+      max-width: 380px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: left;
+    }
+    .quant-edge {
+      font-family: var(--mono);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 28px;
+    }
+    .quant-probabilities {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .quant-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .quant-label {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    .quant-value {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .quant-value.dim { color: var(--text-tertiary); }
+    .quant-divider {
+      height: 1px;
+      background: var(--stroke);
+      margin-bottom: 24px;
+    }
+    .quant-reasoning-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 14px;
+    }
+    .quant-reasoning ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .quant-reasoning li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .quant-reasoning li::before {
+      content: '→';
+      color: var(--text-tertiary);
+      font-size: 12px;
+    }
+    .quant-reasoning li:last-child { border-bottom: none; }
+    /* ===== SOCIAL PROOF / PERFORMANCE ===== */
+    .social-proof {
+      padding: 120px 48px;
+      text-align: center;
+    }
+    .social-proof .section-label {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .social-proof h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 64px;
+    }
+    .proof-stats {
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      margin-bottom: 48px;
+    }
+    .proof-num {
+      display: block;
+      font-family: var(--mono);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .proof-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-tertiary);
+    }
+    .proof-note {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      line-height: 1.7;
+    }
+    /* ===== PRICING ===== */
+    #pricing {
+      background: var(--bg-1);
+      border-top: 1px solid var(--stroke);
+      border-bottom: 1px solid var(--stroke);
+    }
+    .pricing {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .pricing-sub {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 48px;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .pricing-card {
+      background: var(--surface);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 28px 24px;
+    }
+    .pricing-card.featured {
+      border-color: var(--blue);
+      position: relative;
+    }
+    .founding-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--blue);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .pricing-tier {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 16px;
+    }
+    .pricing-price {
+      font-family: var(--serif);
+      font-size: 52px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pricing-period {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+    .pricing-savings {
+      font-family: var(--mono);
+      font-size: 11px;
+      margin-bottom: 24px;
+    }
+    .pricing-savings .orig { color: var(--text-tertiary); text-decoration: line-through; }
+    .pricing-savings .save { color: var(--green); margin-left: 8px; }
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+    .pricing-features li {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 5px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--green);
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pricing-features li.locked { color: var(--text-tertiary); }
+    .pricing-features li.locked::before { content: '✕'; color: var(--text-tertiary); }
+    .btn-pricing {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-pricing.primary {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+    }
+    .btn-pricing.secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--stroke-med);
+    }
+    .btn-pricing:hover { opacity: 0.8; }
+    .pricing-fine {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      text-align: center;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid var(--stroke);
+      padding: 64px 24px 40px;
+      text-align: center;
+    }
+    .footer-philosophy {
+      margin-bottom: 40px;
+    }
+    .footer-mantra {
+      font-family: var(--serif);
+      font-size: 17px;
+      color: var(--text-tertiary);
+      font-style: italic;
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+    .footer-logo {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-bottom: 20px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text-secondary); }
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .footer-social a {
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: var(--text-secondary); }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      line-height: 1.7;
+    }
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        text-align: center;
+      }
+      .hero-text h1 { text-align: center; }
+      .hero-sub { max-width: 100%; text-align: center; margin-left: auto; margin-right: auto; }
+      .hero-subheadline { text-align: center; }
+      .hero-supporting { text-align: center; }
+      .sport-pills { justify-content: center; }
+      .hero-ctas { justify-content: center; }
+      .hero-visual { justify-content: center; }
+      .hiw-columns { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .btn-hero-primary, .btn-hero-secondary { width: 100%; max-width: 300px; }
+      .trust-stats { flex-direction: column; gap: 20px; }
+      .proof-stats { flex-direction: column; gap: 36px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .market-card { max-width: 100%; }
+      .app-screenshots {
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+      }
+      .app-screenshots > div {
+        flex: 0 0 auto;
+        scroll-snap-align: center;
+      }
+    }
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content {
+      animation: fadeUp 0.8s ease forwards;
+    }
+    .trust-strip {
+      animation: fadeUp 0.7s ease 0.3s forwards;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="/images/crest.png" alt="SharpPicks" width="24" height="24" style="display:block;object-fit:contain;" />
+      <span class="nav-logo-text">SHARP<span style="color:#5A9E72;margin:0 2px;font-weight:400;">||</span>PICKS</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#how-it-works">How it works</a></li>
+      <li><a href="#performance">Performance</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="/support">Support</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="https://app.sharppicks.ai" class="btn-ghost">Sign In</a>
+      <a href="https://app.sharppicks.ai/signup" class="btn-primary">Sign Up Free</a>
+    </div>
+  </nav>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>One pick beats five.</h1>
+        <p class="hero-subheadline" style="font-family:var(--serif);font-size:clamp(20px,3vw,28px);font-weight:400;color:#9aa5b4;margin-bottom:20px;line-height:1.3;">Beat the market, not the scoreboard.</p>
+        <p class="hero-sub">SharpPicks analyzes pricing inefficiencies across NBA, WNBA, and MLB using a four-model machine learning ensemble. Signals generate only when a real edge appears above threshold. Most days, the answer is pass.</p>
+        <div class="sport-pills" style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+          <span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:20px;background:rgba(90,158,114,0.12);border:0.5px solid rgba(90,158,114,0.3);color:#5A9E72;"><span style="width:6px;height:6px;border-radius:50%;background:#5A9E72;"></span>NBA</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:20px;background:transparent;border:0.5px solid rgba(255,255,255,0.1);color:#6b7a8d;"><span style="width:6px;height:6px;border-radius:50%;background:#6b7a8d;"></span>MLB<span style="font-size:9px;color:#4a5568;margin-left:6px;">SOON</span></span>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:20px;background:transparent;border:0.5px solid rgba(255,255,255,0.1);color:#6b7a8d;"><span style="width:6px;height:6px;border-radius:50%;background:#6b7a8d;"></span>WNBA<span style="font-size:9px;color:#4a5568;margin-left:6px;">SOON</span></span>
+        </div>
+        <p class="hero-supporting">Selective by design.</p>
+        <div class="hero-ctas">
+          <a href="https://app.sharppicks.ai" class="btn-hero-primary">View Today's Market</a>
+          <a href="#how-it-works" class="btn-hero-secondary">See How It Works</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="market-card">
+          <div class="market-card-header">
+            <span class="regime-dot"></span>
+            <span class="regime-label">Market Regime: <strong>ACTIVE</strong></span>
+          </div>
+          <div class="market-stats">
+            <div class="market-stat"><span class="stat-num">8</span> games analyzed</div>
+            <div class="market-stat"><span class="stat-num">4</span> edges detected</div>
+            <div class="market-stat accent"><span class="stat-num">3</span> signals generated</div>
+          </div>
+          <div class="market-divider"></div>
+          <div class="game-card">
+            <div class="game-card-team">Dallas Mavericks +13.5</div>
+            <div class="game-card-tags">
+              <span class="edge-tag">EDGE +8%</span>
+              <span class="qualifies-tag">QUALIFIES</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- TRUST STRIP -->
+  <section class="trust-strip">
+    <div class="trust-inner">
+      <div class="discipline-filter-card">
+        <span class="trust-label">Discipline Filter</span>
+        <div class="trust-stats">
+          <div class="trust-stat">
+            <span class="trust-num">15</span>
+            games analyzed
+          </div>
+          <div class="trust-stat">
+            <span class="trust-num">3</span>
+            signals generated
+          </div>
+          <div class="trust-stat dim">
+            <span class="trust-num">12</span>
+            games passed
+          </div>
+        </div>
+        <p class="trust-tagline">One pick beats five.</p>
+      </div>
+    </div>
+  </section>
+  <!-- APP SCREENSHOTS -->
+  <section style="padding:120px 48px;text-align:center;">
+    <span class="section-label" style="text-align:center;display:block;color:#5A9E72;">The App</span>
+    <h2 style="font-family:var(--serif);font-size:clamp(28px,4vw,44px);font-weight:600;color:var(--text-primary);margin-bottom:16px;">Built for the process.</h2>
+    <p style="font-size:16px;color:#6b7a8d;margin-bottom:48px;max-width:560px;margin-left:auto;margin-right:auto;">Every signal, every market scan, every result · tracked and transparent.</p>
+    <div class="app-screenshots" style="display:flex;gap:24px;justify-content:center;align-items:flex-start;margin-bottom:24px;">
+      <div style="text-align:center;">
+        <img src="images/screen-signals.png" alt="Signals tab" style="width:240px;height:520px;object-fit:cover;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.3);background:var(--surface);" />
+        <div style="font-family:var(--mono);font-size:11px;color:#4a5568;margin-top:12px;">Signals</div>
+      </div>
+      <div style="text-align:center;">
+        <img src="images/screen-intelligence.png" alt="Market Intelligence" style="width:240px;height:520px;object-fit:cover;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.3);background:var(--surface);" />
+        <div style="font-family:var(--mono);font-size:11px;color:#4a5568;margin-top:12px;">Intelligence</div>
+      </div>
+      <div style="text-align:center;">
+        <img src="images/screen-market.png" alt="Market Board" style="width:240px;height:520px;object-fit:cover;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.3);background:var(--surface);" />
+        <div style="font-family:var(--mono);font-size:11px;color:#4a5568;margin-top:12px;">Market Board</div>
+      </div>
+    </div>
+    <!-- App store badges - uncomment when approved -->
+    <!-- <div class="app-badges" style="display:flex;gap:12px;justify-content:center;margin-top:32px;">
+      <a href="#"><img src="images/app-store-badge.svg" alt="Download on the App Store" height="40"></a>
+      <a href="#"><img src="images/google-play-badge.svg" alt="Get it on Google Play" height="40"></a>
+    </div> -->
+  </section>
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="how-it-works">
+    <span class="section-label">How SharpPicks Works</span>
+    <div class="hiw-columns">
+      <div class="hiw-card">
+        <div class="hiw-icon">
+          <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="rgba(79,134,247,0.7)" stroke-width="1.5">
+            <circle cx="16" cy="16" r="12"/>
+            <path d="M12 20V14h2v6h-2zm4 0V12h2v8h-2zm4 0V16h2v4h-2z" fill="rgba(79,134,247,0.5)" stroke="none"/>
+          </svg>
+        </div>
+        <h3>Market Intelligence</h3>
+        <p>SharpPicks scans every game across multiple sportsbooks to detect pricing discrepancies.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-icon">
+          <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="rgba(79,134,247,0.7)" stroke-width="1.5">
+            <rect x="4" y="4" width="24" height="24" rx="4"/>
+            <path d="M9 22l4-6 4 3 6-9" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Quantitative Analysis</h3>
+        <p>Each game is evaluated using statistical models, probability gaps, and market signals.</p>
+      </div>
+      <div class="hiw-card">
+        <div class="hiw-icon">
+          <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="rgba(79,134,247,0.7)" stroke-width="1.5">
+            <circle cx="16" cy="16" r="12"/>
+            <path d="M10 16l4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Discipline Filter</h3>
+        <p>Only the strongest edges become signals.<br><strong style="color: var(--text-primary);">No edge, no pick.</strong></p>
+      </div>
+    </div>
+  </section>
+  <!-- PRODUCT SCREENSHOT — QUANT ANALYSIS CARD -->
+  <section class="product-screenshot">
+    <span class="section-label">Quant Analysis</span>
+    <h2>See inside the signal.</h2>
+    <div class="quant-card">
+      <div class="quant-edge">EDGE +8%</div>
+      <div class="quant-probabilities">
+        <div class="quant-row">
+          <span class="quant-label">Cover probability</span>
+          <span class="quant-value">71.6%</span>
+        </div>
+        <div class="quant-row">
+          <span class="quant-label">Implied probability</span>
+          <span class="quant-value dim">47.6%</span>
+        </div>
+      </div>
+      <div class="quant-divider"></div>
+      <div class="quant-reasoning">
+        <span class="quant-reasoning-label">Reasoning</span>
+        <ul>
+          <li>Rest advantage</li>
+          <li>Defensive mismatch</li>
+          <li>Market movement</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- SOCIAL PROOF / PERFORMANCE -->
+  <section id="performance" class="social-proof">
+    <span class="section-label">Performance</span>
+    <h2>Verified. Public. No exceptions.</h2>
+    <div class="proof-stats">
+      <div class="proof-stat">
+        <span class="proof-num">+1.7</span>
+        <span class="proof-label">Avg Closing Line Value</span>
+        <span style="display:block;font-size:13px;color:#4a5568;max-width:200px;margin:8px auto 0;line-height:1.5;">Picks beat the closing line by 1.7 points on average</span>
+      </div>
+      <div class="proof-stat">
+        <span class="proof-num">63%</span>
+        <span class="proof-label">Closing Line Beat Rate</span>
+        <span style="display:block;font-size:13px;color:#4a5568;max-width:200px;margin:8px auto 0;line-height:1.5;">63% of signals moved to a worse number after release</span>
+      </div>
+      <div class="proof-stat">
+        <span class="proof-num">312</span>
+        <span class="proof-label">Signals Generated</span>
+        <span style="display:block;font-size:13px;color:#4a5568;max-width:200px;margin:8px auto 0;line-height:1.5;">Every pick tracked publicly since day one</span>
+      </div>
+    </div>
+    <p class="proof-note">All picks tracked publicly from day one. No deletions. No hindsight edits. No exceptions.<br>Past performance does not guarantee future results.</p>
+  </section>
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="container-wide">
+      <div class="section-label" style="text-align:center;">Pricing</div>
+      <h2 class="pricing" style="text-align:center;">Founding member pricing</h2>
+      <p class="pricing-sub" style="text-align:center;">Lock in $99/year · first 50 members only. Cancel anytime.</p>
+      <div class="pricing-grid">
+        <!-- FREE -->
+        <div class="pricing-card">
+          <div class="pricing-tier">Free</div>
+          <div class="pricing-price">$0</div>
+          <div class="pricing-period">/forever</div>
+          <div style="height:28px"></div>
+          <ul class="pricing-features">
+            <li>Model activity feed</li>
+            <li>Public record access</li>
+            <li>Pass-day summaries</li>
+            <li class="locked">Pick details locked</li>
+            <li class="locked">No bet tracking</li>
+          </ul>
+          <a href="https://app.sharppicks.ai/signup" class="btn-pricing secondary">Create Free Account</a>
+        </div>
+        <!-- FOUNDING -->
+        <div class="pricing-card featured">
+          <div class="founding-badge">Founding Rate</div>
+          <div class="pricing-tier">Pro · Annual</div>
+          <div class="pricing-price">$99</div>
+          <div class="pricing-period">/year · First 50 · <span id="spots-left">48 spots left</span></div>
+          <div class="pricing-savings"><span class="orig">$8.25/mo</span><span class="save">· Save 72%</span></div>
+          <ul class="pricing-features">
+            <li>Full pick access · side, line, edge %</li>
+            <li>Daily market brief on all days</li>
+            <li>Outcome tracking + coaching</li>
+            <li>Equity curve + behavioral metrics</li>
+            <li>Weekly summary + capital preserved</li>
+            <li>Pick history with full audit trail</li>
+            <li>Bet tracking against signals</li>
+            <li>Push notifications + email alerts</li>
+            <li>Shareable branded cards</li>
+          </ul>
+          <a href="https://app.sharppicks.ai/signup?plan=annual" class="btn-pricing primary">Start 14-Day Free Trial</a>
+          <div style="font-family:var(--mono);font-size:10px;color:#4a5568;text-align:center;margin-top:12px;">NBA · WNBA (coming soon) · MLB (coming soon)</div>
+        </div>
+        <!-- MONTHLY -->
+        <div class="pricing-card">
+          <div class="pricing-tier">Pro · Monthly</div>
+          <div class="pricing-price">$29</div>
+          <div class="pricing-period">/month</div>
+          <div style="height:28px; font-size:13px; color:var(--text-tertiary); padding-top:4px;">Flexible billing</div>
+          <ul class="pricing-features">
+            <li>Full pick access · side, line, edge %</li>
+            <li>Daily market brief on all days</li>
+            <li>Outcome tracking + coaching</li>
+            <li>Equity curve + behavioral metrics</li>
+            <li>Weekly summary + capital preserved</li>
+            <li>Pick history with full audit trail</li>
+            <li>Bet tracking against signals</li>
+            <li>Push notifications + email alerts</li>
+            <li>Shareable branded cards</li>
+          </ul>
+          <a href="https://app.sharppicks.ai/signup?plan=monthly" class="btn-pricing secondary">Start 14-Day Free Trial</a>
+          <div style="font-family:var(--mono);font-size:10px;color:#4a5568;text-align:center;margin-top:12px;">NBA · WNBA (coming soon) · MLB (coming soon)</div>
+        </div>
+      </div>
+      <p class="pricing-fine">14-day free trial on all plans. Cancel anytime · no fees, no questions. After trial, founding rate of $99/year is locked in as long as you remain subscribed. Standard rate will be $149/year after the first 50 members. Switch to monthly ($29/mo) anytime. Past performance does not guarantee future results. SharpPicks provides analysis, not financial advice.</p>
+    </div>
+  </section>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-philosophy">
+      <p class="footer-mantra">Beat the market, not the scoreboard.</p>
+    </div>
+    <div class="footer-logo">SHARP<span style="color:#5A9E72;font-weight:400;">||</span>PICKS</div>
+    <div class="footer-tagline">Discipline Is the Product.</div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="https://app.sharppicks.ai">App</a>
+      <a href="/support">Support</a>
+      <a href="mailto:support@sharppicks.ai">Contact</a>
+    </div>
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="#" aria-label="X / Twitter">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
+    </div>
+    <p class="footer-copy">© 2026 SharpPicks. Not financial advice. Not a guarantee of outcomes.<br>Past performance does not guarantee future results.</p>
+  </footer>
+
+<script>
+  // Fetch live stats from API
+  async function loadStats() {
+    try {
+      const res = await fetch('https://app.sharppicks.ai/api/public/stats');
+      if (!res.ok) return;
+      const data = await res.json();
+
+      if (data.founding_spots_claimed !== undefined && data.founding_spots_total !== undefined) {
+        const spotsLeft = document.getElementById('spots-left');
+        if (spotsLeft) spotsLeft.textContent = `${data.founding_spots_total - data.founding_spots_claimed} spots left`;
+      }
+    } catch (e) {
+      // Fail silently — static fallbacks remain
+    }
+  }
+
+  loadStats();
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>

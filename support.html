@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support · SharpPicks</title>
+  <meta name="description" content="Get help with SharpPicks. Contact support, browse FAQs, and find answers about your account and the platform." />
+  <meta property="og:title" content="Support · SharpPicks" />
+  <meta property="og:description" content="Get help with SharpPicks. Contact support, browse FAQs, and find answers about your account and the platform." />
+  <meta name="twitter:title" content="Support · SharpPicks" />
+  <meta name="twitter:description" content="Get help with SharpPicks. Contact support, browse FAQs, and find answers about your account and the platform." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #090c14;
+      --bg-1: #0f1420;
+      --bg-2: #141928;
+      --surface: #1a2035;
+      --surface-hover: #1f2740;
+      --stroke: rgba(255,255,255,0.08);
+      --stroke-med: rgba(255,255,255,0.12);
+      --text-primary: #f0f2f7;
+      --text-secondary: #8a92a8;
+      --text-tertiary: #515969;
+      --blue: #4f86f7;
+      --blue-dim: rgba(79,134,247,0.15);
+      --green: #22c55e;
+      --red: #ef4444;
+      --gold: #f59e0b;
+      --serif: 'IBM Plex Serif', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      background: rgba(9,12,20,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--stroke);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo img, .nav-logo svg { width: 24px; height: 24px; }
+
+    .nav-logo-text {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a.active { color: var(--text-primary); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-ghost {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .btn-ghost:hover { color: var(--text-primary); background: var(--surface); }
+
+    .btn-primary {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--blue);
+      border: none;
+      cursor: pointer;
+      padding: 9px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover { opacity: 0.85; }
+
+    /* PAGE LAYOUT */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .support-header {
+      padding: 140px 24px 80px;
+      text-align: center;
+    }
+
+    .support-header .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 20px;
+    }
+
+    .support-header h1 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .support-header p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* CONTACT CARD */
+    .contact-section {
+      padding: 0 24px 80px;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--stroke-med);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--blue-dim);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--blue);
+    }
+
+    .contact-info {
+      flex: 1;
+    }
+
+    .contact-info a {
+      font-family: var(--mono);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-info a:hover { color: var(--blue); }
+
+    .contact-info p {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* FAQ */
+    .faq-section {
+      padding: 0 24px 100px;
+    }
+
+    .faq-section .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 24px;
+    }
+
+    .faq-item {
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      margin-bottom: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:hover {
+      border-color: var(--stroke-med);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: var(--surface);
+      border: none;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      text-align: left;
+      line-height: 1.5;
+      transition: background 0.2s;
+    }
+
+    .faq-question:hover { background: var(--surface-hover); }
+
+    .faq-chevron {
+      width: 16px;
+      height: 16px;
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+      margin-left: 16px;
+      transition: transform 0.25s ease;
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-answer-inner {
+      padding: 0 24px 20px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      background: var(--surface);
+    }
+
+    .faq-answer-inner a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .faq-answer-inner a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--stroke);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .footer-social a {
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-social a:hover { color: var(--text-secondary); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      line-height: 1.7;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .contact-card {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .support-header > * {
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .support-header > *:nth-child(1) { animation-delay: 0.1s; opacity: 0; }
+    .support-header > *:nth-child(2) { animation-delay: 0.2s; opacity: 0; }
+    .support-header > *:nth-child(3) { animation-delay: 0.3s; opacity: 0; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/images/crest.png" alt="SharpPicks" width="24" height="24" style="display:block;object-fit:contain;" />
+    <span class="nav-logo-text">SHARP<span style="color:#5A9E72;margin:0 2px;font-weight:400;">||</span>PICKS</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#problem">The Problem</a></li>
+    <li><a href="/#how-it-works">How it works</a></li>
+    <li><a href="/#performance">Performance</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/support" class="active">Support</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="https://app.sharppicks.ai" class="btn-ghost">Sign In</a>
+    <a href="https://app.sharppicks.ai/signup" class="btn-primary">Sign Up Free</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<section class="support-header">
+  <div class="container">
+    <div class="section-label">Support</div>
+    <h1>How can we help?</h1>
+    <p>Have a question about your account, picks, or the platform? Browse common questions below or reach out directly. We typically respond within 24 hours.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-card">
+      <div class="contact-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="20" height="16" x="2" y="4" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      </div>
+      <div class="contact-info">
+        <a id="support-email" href="#" style="font-family:var(--mono);font-size:16px;font-weight:500;color:var(--text-primary);text-decoration:none;">Loading...</a>
+        <p>For account issues, include the email address associated with your SharpPicks account.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-label">Frequently Asked Questions</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What is SharpPicks?
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">SharpPicks is a model-driven sports market intelligence platform covering NBA, WNBA, and MLB. Our four-model ensemble evaluates games daily and surfaces high-confidence picks based on closing line value, historical performance, and real-time market data. We publish a maximum of one pick per day, only when the model identifies a meaningful edge.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I create an account or sign in?
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Visit <a href="https://app.sharppicks.ai">app.sharppicks.ai</a> to create an account or sign in. If you're having trouble logging in, try resetting your password. If the issue persists, contact us at <a href="mailto:support@sharppicks.ai">support@sharppicks.ai</a>.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How does the prediction model work?
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">SharpPicks uses a four-model ensemble with 56 features and walk-forward validation. Picks are only published when the model detects a minimum edge threshold, and every pick undergoes pre-tip revalidation. If the edge decays before tip-off, the pick is withdrawn. We track closing line value as the primary signal for model health.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I manage my subscription?
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Subscription management — including upgrades, cancellations, and billing history — is handled through your account at <a href="https://app.sharppicks.ai">app.sharppicks.ai</a>. If you need help with a billing issue, email <a href="mailto:support@sharppicks.ai">support@sharppicks.ai</a>.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What does "edge" mean?
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Edge is the difference between our model's projected probability of an outcome and the probability implied by the market line. A higher edge percentage indicates the model sees greater value relative to the market. We only publish picks when this edge exceeds our minimum threshold.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Is SharpPicks available on mobile?
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Yes. SharpPicks is available as a mobile app for iOS and Android, as well as through the web at <a href="https://app.sharppicks.ai">app.sharppicks.ai</a>. The mobile apps include push notifications so you never miss a pick.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What is a "pass" day?
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">A pass day is when the model analyzes every available game and finds no edge worth publishing. Pass days are a feature, not a limitation — choosing not to bet is an active decision that protects your bankroll. We track passes publicly alongside picks.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        I found a bug. How do I report it?
+        <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Email <a href="mailto:support@sharppicks.ai">support@sharppicks.ai</a> with a description of the issue, the device and browser you're using, and screenshots if possible. We take every report seriously and will follow up.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SHARP<span style="color:#5A9E72;font-weight:400;">||</span>PICKS</div>
+  <div class="footer-tagline">Discipline Is the Product.</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="https://app.sharppicks.ai">App</a>
+    <a href="/support">Support</a>
+    <a href="mailto:support@sharppicks.ai">Contact</a>
+  </div>
+  <div class="footer-social">
+    <a href="#" aria-label="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+    <a href="#" aria-label="X / Twitter">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+    </a>
+  </div>
+  <p class="footer-copy">© 2026 SharpPicks. Not financial advice. Not a guarantee of outcomes.<br>Past performance does not guarantee future results.</p>
+</footer>
+
+<script>
+  // Build email via JS to avoid Cloudflare email obfuscation
+  (function() {
+    var u = 'support';
+    var d = 'sharppicks.ai';
+    var el = document.getElementById('support-email');
+    if (el) {
+      el.href = 'mailto:' + u + '@' + d;
+      el.textContent = u + '@' + d;
+    }
+  })();
+
+  // FAQ toggle
+  function toggleFaq(btn) {
+    var item = btn.closest('.faq-item');
+    var answer = item.querySelector('.faq-answer');
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(el) {
+      el.classList.remove('open');
+      el.querySelector('.faq-answer').style.maxHeight = null;
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+</script>
+</body>
+</html>
